@@ -5,40 +5,96 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Conecta Itá 🤝</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         body { background: #f0f2f5; color: #1a1a1a; }
-        
-        /* Barra de navegación */
+        button { cursor: pointer; border: none; border-radius: 8px; }
+        input { border-radius: 6px; border: 1px solid #ddd; padding: 10px; font-size: 14px; }
+
+        /* Barra de Navegación */
         .navegacion {
             background: white;
-            padding: 15px 30px;
+            padding: 12px 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
             position: sticky;
             top: 0;
+            z-index: 100;
         }
-        .logo { font-size: 24px; font-weight: bold; color: #2563eb; }
-        .nav-enlaces a { margin: 0 12px; text-decoration: none; color: #374151; font-weight: 500; }
-        .nav-enlaces a:hover { color: #2563eb; }
+        .logo { font-size: 22px; font-weight: bold; color: #2563eb; }
+        .nav-centro a { margin: 0 10px; text-decoration: none; color: #555; font-size: 15px; }
+        .nav-centro a:hover { color: #2563eb; }
+        .nav-derecha button {
+            padding: 8px 16px;
+            font-size: 14px;
+            margin-left: 8px;
+        }
+        .btn-primario { background: #2563eb; color: white; }
+        .btn-secundario { background: #e5e7eb; color: #374151; }
 
-        /* Contenido principal */
-        .contenedor { max-width: 600px; margin: 30px auto; padding: 0 15px; }
-        
-        /* Bienvenida */
-        .bienvenida {
+        /* Contenedor General */
+        .contenedor { max-width: 600px; margin: 0 auto; padding: 20px 15px; }
+        .oculto { display: none !important; }
+
+        /* Tarjetas Generales */
+        .tarjeta {
             background: white;
-            padding: 30px;
             border-radius: 12px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            margin-bottom: 30px;
-            text-align: center;
+            padding: 25px;
+            margin-bottom: 20px;
         }
-        .bienvenida h1 { color: #2563eb; margin-bottom: 10px; }
-        .bienvenida p { color: #6b7280; font-size: 16px; }
+        .tarjeta h2 { color: #2563eb; margin-bottom: 20px; text-align: center; }
+        .tarjeta input, .tarjeta select {
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+        }
+        .tarjeta button { width: 100%; padding: 12px; font-size: 16px; margin-top: 8px; }
+        .mensaje { margin-top: 15px; text-align: center; font-size: 14px; }
+        .mensaje a { color: #2563eb; cursor: pointer; }
 
-        /* Tarjeta de publicación */
+        /* Historias */
+        .historias {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding: 15px 0;
+            margin-bottom: 20px;
+        }
+        .historia {
+            flex-shrink: 0;
+            width: 80px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .historia-circulo {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 6px;
+        }
+        .historia-interna {
+            width: 62px;
+            height: 62px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+        .historia-nombre { font-size: 11px; color: #333; max-width: 70px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .agregar-historia { border: 2px dashed #ccc; background: white; }
+
+        /* Publicaciones */
         .publicacion {
             background: white;
             border-radius: 12px;
@@ -46,15 +102,15 @@
             margin-bottom: 25px;
             overflow: hidden;
         }
-        .publicacion-cabecera {
+        .pub-cabecera {
             padding: 12px 15px;
             display: flex;
             align-items: center;
             gap: 10px;
         }
         .avatar {
-            width: 40px;
-            height: 40px;
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
             background: linear-gradient(135deg, #2563eb, #60a5fa);
             display: flex;
@@ -64,8 +120,9 @@
             font-weight: bold;
             font-size: 18px;
         }
-        .nombre-usuario { font-weight: bold; font-size: 15px; }
-        .imagen-publicacion {
+        .pub-nombre { font-weight: 600; font-size: 15px; }
+        .pub-tipo { font-size: 11px; color: #2563eb; }
+        .pub-imagen {
             width: 100%;
             height: 350px;
             background: #e5e7eb;
@@ -75,117 +132,241 @@
             color: #6b7280;
             font-size: 16px;
         }
-        .publicacion-cuerpo { padding: 15px; }
-        .acciones { margin: 10px 0; }
+        .pub-cuerpo { padding: 12px 15px; }
         .acciones button {
             background: none;
-            border: none;
-            font-size: 20px;
-            margin-right: 15px;
-            cursor: pointer;
+            font-size: 22px;
+            margin-right: 12px;
+            padding: 4px;
         }
-        .descripcion { font-size: 14px; line-height: 1.5; }
-        .descripcion strong { font-weight: bold; }
+        .pub-descripcion { margin-top: 8px; font-size: 14px; line-height: 1.5; }
 
-        /* Pie de página */
-        .pie {
+        /* Perfil */
+        .perfil-cabecera {
             text-align: center;
-            padding: 30px;
-            color: #6b7280;
-            font-size: 13px;
+            padding: 20px;
         }
+        .perfil-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2563eb, #60a5fa);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 40px;
+            margin: 0 auto 15px;
+        }
+        .perfil-nombre { font-size: 22px; font-weight: bold; margin-bottom: 5px; }
+        .perfil-tipo {
+            display: inline-block;
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+        .perfil-bio { color: #555; font-size: 14px; max-width: 400px; margin: 0 auto; }
+
+        /* Modal de Historia */
+        .modal-fondo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 200;
+        }
+        .modal-historia {
+            width: 320px;
+            height: 550px;
+            background: white;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+        .modal-cerrar {
+            position: absolute;
+            top: 10px;
+            right: 12px;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+            z-index: 10;
+        }
+        .modal-barra {
+            height: 4px;
+            background: #333;
+            margin: 8px;
+            border-radius: 2px;
+        }
+        .modal-barra-llena {
+            height: 100%;
+            width: 100%;
+            background: white;
+            border-radius: 2px;
+            animation: llenar 5s linear forwards;
+        }
+        @keyframes llenar {
+            from { width: 0%; }
+            to { width: 100%; }
+        }
+        .modal-contenido {
+            height: calc(100% - 30px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+        }
+        .modal-emoji { font-size: 60px; margin-bottom: 20px; }
+        .modal-texto { font-size: 18px; color: #333; }
+        .modal-usuario { font-size: 14px; color: #666; margin-top: 10px; }
+
+        /* Secciones */
+        .seccion { display: none; }
+        .seccion.activa { display: block; }
+
+        /* Pie */
+        .pie { text-align: center; padding: 30px; color: #888; font-size: 13px; }
     </style>
 </head>
 <body>
 
-<!-- Barra de navegación -->
+<!-- Barra de Navegación -->
 <nav class="navegacion">
-    <div class="logo">🌊 Conecta Itá</div>
-    <div class="nav-enlaces">
-        <a href="#inicio">🏠 Inicio</a>
-        <a href="#publicaciones">📸 Publicaciones</a>
-        <a href="#nosotros">ℹ️ Nosotros</a>
+    <div class="logo" onclick="mostrarSeccion('inicio')">🌊 Conecta Itá</div>
+    <div class="nav-centro" id="menuPublico">
+        <a onclick="mostrarSeccion('inicio')">🏠 Inicio</a>
+        <a onclick="mostrarSeccion('explorar')">🔍 Explorar</a>
+        <a onclick="mostrarSeccion('nosotros')">ℹ️ Nosotros</a>
+    </div>
+    <div class="nav-centro oculto" id="menuPrivado">
+        <a onclick="mostrarSeccion('inicio')">🏠 Inicio</a>
+        <a onclick="mostrarSeccion('crearPublicacion')">➕ Publicar</a>
+        <a onclick="mostrarSeccion('crearHistoria')">📸 Historia</a>
+        <a onclick="mostrarSeccion('perfil')">👤 Mi Perfil</a>
+    </div>
+    <div class="nav-derecha" id="botonesPublicos">
+        <button class="btn-secundario" onclick="mostrarSeccion('iniciarSesion')">Iniciar Sesión</button>
+        <button class="btn-primario" onclick="mostrarSeccion('registro')">Crear Cuenta</button>
+    </div>
+    <div class="nav-derecha oculto" id="botonesPrivados">
+        <span id="usuarioNombre" style="margin-right:10px; font-weight:500;"></span>
+        <button class="btn-secundario" onclick="cerrarSesion()">Salir</button>
     </div>
 </nav>
 
-<!-- Contenido principal -->
 <main class="contenedor">
-    <!-- Sección Inicio -->
-    <section class="bienvenida" id="inicio">
-        <h1>🤝 ¡Bienvenidos a Conecta Itá!</h1>
-        <p>El lugar donde los emprendedores de Itá Ibaté muestran sus productos y vos encontrás todo lo que necesitás cerca de casa.</p>
-    </section>
 
-    <!-- Sección Publicaciones -->
-    <section id="publicaciones">
-        <!-- Publicación 1 -->
+    <!-- Sección: Inicio -->
+    <section id="inicio" class="seccion activa">
+        <div class="tarjeta" style="text-align:center; background:linear-gradient(135deg,#2563eb,#60a5fa); color:white;">
+            <h2 style="color:white; font-size:26px;">🤝 ¡Bienvenidos a Conecta Itá!</h2>
+            <p style="color:#f0f9ff; font-size:16px;">Conectando emprendedores y vecinos de Itá Ibaté</p>
+        </div>
+
+        <!-- Historias -->
+        <div class="historias" id="listaHistorias">
+            <div class="historia" onclick="mostrarSeccion('iniciarSesion'); alert('Iniciá sesión para agregar tu historia ✨')">
+                <div class="historia-circulo agregar-historia">
+                    <div class="historia-interna" style="background:transparent; color:#888; font-size:28px;">+</div>
+                </div>
+                <div class="historia-nombre">Agregar</div>
+            </div>
+            <div class="historia" onclick="verHistoria(0)">
+                <div class="historia-circulo"><div class="historia-interna">🍦</div></div>
+                <div class="historia-nombre">Heladería</div>
+            </div>
+            <div class="historia" onclick="verHistoria(1)">
+                <div class="historia-circulo"><div class="historia-interna">👕</div></div>
+                <div class="historia-nombre">Ropa</div>
+            </div>
+            <div class="historia" onclick="verHistoria(2)">
+                <div class="historia-circulo"><div class="historia-interna">🏪</div></div>
+                <div class="historia-nombre">Kiosco</div>
+            </div>
+        </div>
+
+        <!-- Publicaciones -->
+        <h3 style="margin:20px 0 10px; color:#374151;">📸 Publicaciones recientes</h3>
+        
         <div class="publicacion">
-            <div class="publicacion-cabecera">
+            <div class="pub-cabecera">
                 <div class="avatar">🍦</div>
-                <div class="nombre-usuario">Heladería Familiar</div>
-            </div>
-            <div class="imagen-publicacion">📷 Foto de los helados artesanales</div>
-            <div class="publicacion-cuerpo">
-                <div class="acciones">
-                    <button>❤️</button>
-                    <button>💬</button>
-                    <button>↗️</button>
+                <div>
+                    <div class="pub-nombre">Heladería Familiar</div>
+                    <div class="pub-tipo">🛒 Emprendedor</div>
                 </div>
-                <p class="descripcion"><strong>Heladería Familiar</strong> ¡Helados artesanales hechos con amor! Cremas de la mejor calidad. Encontranos en nuestro local del centro de Itá Ibaté 🍨</p>
+            </div>
+            <div class="pub-imagen">📷 Foto de nuestros helados artesanales 🍨</div>
+            <div class="pub-cuerpo">
+                <div class="acciones"><button>❤️</button><button>💬</button><button>↗️</button></div>
+                <p class="pub-descripcion"><strong>Heladería Familiar</strong> ¡Noche de calor! ☀️ Vení por tu helado favorito. Cremas artesanales, hechos con amor y productos locales. 📍 Centro de Itá Ibaté</p>
             </div>
         </div>
 
-        <!-- Publicación 2 -->
         <div class="publicacion">
-            <div class="publicacion-cabecera">
+            <div class="pub-cabecera">
                 <div class="avatar">👕</div>
-                <div class="nombre-usuario">Indumentaria Rocío</div>
-            </div>
-            <div class="imagen-publicacion">📷 Foto de la ropa disponible</div>
-            <div class="publicacion-cuerpo">
-                <div class="acciones">
-                    <button>❤️</button>
-                    <button>💬</button>
-                    <button>↗️</button>
+                <div>
+                    <div class="pub-nombre">Indumentaria Rocío</div>
+                    <div class="pub-tipo">🛒 Emprendedor</div>
                 </div>
-                <p class="descripcion"><strong>Indumentaria Rocío</strong> Ropa para hombres y mujeres. ¡Nuevos ingresos! Consultame por mensaje para reservar tu prenda favorita ✨</p>
+            </div>
+            <div class="pub-imagen">📷 Nuevos ingresos de temporada ✨</div>
+            <div class="pub-cuerpo">
+                <div class="acciones"><button>❤️</button><button>💬</button><button>↗️</button></div>
+                <p class="pub-descripcion"><strong>Indumentaria Rocío</strong> ¡Llegaron prendas nuevas! 👗👔 Ropa para todos los estilos. Consultame sin compromiso, te ayudo a elegir ✨</p>
             </div>
         </div>
 
-        <!-- Publicación 3 -->
         <div class="publicacion">
-            <div class="publicacion-cabecera">
+            <div class="pub-cabecera">
                 <div class="avatar">🏪</div>
-                <div class="nombre-usuario">Kiosco de la Esquina</div>
-            </div>
-            <div class="imagen-publicacion">📷 Foto del local y productos</div>
-            <div class="publicacion-cuerpo">
-                <div class="acciones">
-                    <button>❤️</button>
-                    <button>💬</button>
-                    <button>↗️</button>
+                <div>
+                    <div class="pub-nombre">Kiosco de la Esquina</div>
+                    <div class="pub-tipo">🛒 Emprendedor</div>
                 </div>
-                <p class="descripcion"><strong>Kiosco de la Esquina</strong> Todo lo que necesitás, abierto de mañana hasta medianoche. Bebidas, snacks y mucho más. ¡Pasá a visitarnos! 🥤</p>
+            </div>
+            <div class="pub-imagen">📷 Todo lo que necesitás, cerca de vos 🥤</div>
+            <div class="pub-cuerpo">
+                <div class="acciones"><button>❤️</button><button>💬</button><button>↗️</button></div>
+                <p class="pub-descripcion"><strong>Kiosco de la Esquina</strong> Abierto de mañana hasta medianoche 🌙 Bebidas, snacks y mucho más. ¡Pasá a visitarnos!</p>
             </div>
         </div>
     </section>
 
-    <!-- Sección Nosotros -->
-    <section class="bienvenida" id="nosotros">
-        <h2>ℹ️ ¿Qué es Conecta Itá?</h2>
-        <p>Somos un proyecto escolar pensado para conectar a los emprendedores locales con los vecinos de Itá Ibaté. Acá podés conocer qué se produce y se vende en nuestra zona.</p>
-        <br>
-        <p><strong>¿Querés sumar tu emprendimiento?</strong> ¡Escribinos y te agregamos! 📩</p>
-    </section>
-</main>
-
-<!-- Pie de página -->
-<footer class="pie">
-    <p>🌊 Conecta Itá — Conectando emprendedores y vecinos de Itá Ibaté</p>
-    <p>© 2026 — Proyecto escolar</p>
-</footer>
-
-</body>
-</html>
-      
-    
+    <!-- Sección: Explorar -->
+    <section id="explorar" class="seccion">
+        <div class="tarjeta">
+            <h2>🔍 Buscar emprendimientos</h2>
+            <input type="text" placeholder="Buscar por nombre, producto o rubro...">
+            <button class="btn-primario">Buscar</button>
+        </div>
+        <h3 style="margin:20px 0 10px;">Emprendimientos destacados</h3>
+        <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:15px;">
+            <div class="tarjeta" style="text-align:center; padding:20px;">
+                <div style="font-size:32px; margin-bottom:8px;">🍦</div>
+                <div style="font-weight:bold;">Heladería Familiar</div>
+                <div style="font-size:12px; color:#666;">Alimentos</div>
+            </div>
+            <div class="tarjeta" style="text-align:center; padding:20px;">
+                <div style="font-size:32px; margin-bottom:8px;">👕</div>
+                <div style="font-weight:bold;">Indumentaria Rocío</div>
+                <div style="font-size:12px; color:#666;">Ropa</div>
+            </div>
+            <div class="tarjeta" style="text-align:center; padding:20px;">
+                <div style="font-size:32px; margin-bottom:8px;">🏪</div>
+                <div style="font-weight:bold;">Kiosco de la Esquina</div>
+                <div style="font-size:12px; color:#666;">Comercio</div>
+            </div>
+            <div class="tarjeta" style="text-align:center; padding:20px;">
+                <div style="font-size:32
