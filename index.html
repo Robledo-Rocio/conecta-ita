@@ -1,15 +1,191 @@
 <!DOCTYPE html>
-<html lang= "es">
-  <head>
-    <meta charset="UTF"-8>
-    <meta name= "viewport"
-      content="width=device-width, initial-scale=1.0">
-    <title>Conecta ita </title>
-  </head>
-  <body>
-    <h1>Conecta Ita</h1>
-    <p> Red social de emprendedores y clientes de Ita Ibate</p>
-  </body
-    </html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conecta Itá 🤝</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+        body { background: #f0f2f5; color: #1a1a1a; }
+        
+        /* Barra de navegación */
+        .navegacion {
+            background: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+        }
+        .logo { font-size: 24px; font-weight: bold; color: #2563eb; }
+        .nav-enlaces a { margin: 0 12px; text-decoration: none; color: #374151; font-weight: 500; }
+        .nav-enlaces a:hover { color: #2563eb; }
+
+        /* Contenido principal */
+        .contenedor { max-width: 600px; margin: 30px auto; padding: 0 15px; }
+        
+        /* Bienvenida */
+        .bienvenida {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .bienvenida h1 { color: #2563eb; margin-bottom: 10px; }
+        .bienvenida p { color: #6b7280; font-size: 16px; }
+
+        /* Tarjeta de publicación */
+        .publicacion {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+        .publicacion-cabecera {
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2563eb, #60a5fa);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .nombre-usuario { font-weight: bold; font-size: 15px; }
+        .imagen-publicacion {
+            width: 100%;
+            height: 350px;
+            background: #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b7280;
+            font-size: 16px;
+        }
+        .publicacion-cuerpo { padding: 15px; }
+        .acciones { margin: 10px 0; }
+        .acciones button {
+            background: none;
+            border: none;
+            font-size: 20px;
+            margin-right: 15px;
+            cursor: pointer;
+        }
+        .descripcion { font-size: 14px; line-height: 1.5; }
+        .descripcion strong { font-weight: bold; }
+
+        /* Pie de página */
+        .pie {
+            text-align: center;
+            padding: 30px;
+            color: #6b7280;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Barra de navegación -->
+<nav class="navegacion">
+    <div class="logo">🌊 Conecta Itá</div>
+    <div class="nav-enlaces">
+        <a href="#inicio">🏠 Inicio</a>
+        <a href="#publicaciones">📸 Publicaciones</a>
+        <a href="#nosotros">ℹ️ Nosotros</a>
+    </div>
+</nav>
+
+<!-- Contenido principal -->
+<main class="contenedor">
+    <!-- Sección Inicio -->
+    <section class="bienvenida" id="inicio">
+        <h1>🤝 ¡Bienvenidos a Conecta Itá!</h1>
+        <p>El lugar donde los emprendedores de Itá Ibaté muestran sus productos y vos encontrás todo lo que necesitás cerca de casa.</p>
+    </section>
+
+    <!-- Sección Publicaciones -->
+    <section id="publicaciones">
+        <!-- Publicación 1 -->
+        <div class="publicacion">
+            <div class="publicacion-cabecera">
+                <div class="avatar">🍦</div>
+                <div class="nombre-usuario">Heladería Familiar</div>
+            </div>
+            <div class="imagen-publicacion">📷 Foto de los helados artesanales</div>
+            <div class="publicacion-cuerpo">
+                <div class="acciones">
+                    <button>❤️</button>
+                    <button>💬</button>
+                    <button>↗️</button>
+                </div>
+                <p class="descripcion"><strong>Heladería Familiar</strong> ¡Helados artesanales hechos con amor! Cremas de la mejor calidad. Encontranos en nuestro local del centro de Itá Ibaté 🍨</p>
+            </div>
+        </div>
+
+        <!-- Publicación 2 -->
+        <div class="publicacion">
+            <div class="publicacion-cabecera">
+                <div class="avatar">👕</div>
+                <div class="nombre-usuario">Indumentaria Rocío</div>
+            </div>
+            <div class="imagen-publicacion">📷 Foto de la ropa disponible</div>
+            <div class="publicacion-cuerpo">
+                <div class="acciones">
+                    <button>❤️</button>
+                    <button>💬</button>
+                    <button>↗️</button>
+                </div>
+                <p class="descripcion"><strong>Indumentaria Rocío</strong> Ropa para hombres y mujeres. ¡Nuevos ingresos! Consultame por mensaje para reservar tu prenda favorita ✨</p>
+            </div>
+        </div>
+
+        <!-- Publicación 3 -->
+        <div class="publicacion">
+            <div class="publicacion-cabecera">
+                <div class="avatar">🏪</div>
+                <div class="nombre-usuario">Kiosco de la Esquina</div>
+            </div>
+            <div class="imagen-publicacion">📷 Foto del local y productos</div>
+            <div class="publicacion-cuerpo">
+                <div class="acciones">
+                    <button>❤️</button>
+                    <button>💬</button>
+                    <button>↗️</button>
+                </div>
+                <p class="descripcion"><strong>Kiosco de la Esquina</strong> Todo lo que necesitás, abierto de mañana hasta medianoche. Bebidas, snacks y mucho más. ¡Pasá a visitarnos! 🥤</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Nosotros -->
+    <section class="bienvenida" id="nosotros">
+        <h2>ℹ️ ¿Qué es Conecta Itá?</h2>
+        <p>Somos un proyecto escolar pensado para conectar a los emprendedores locales con los vecinos de Itá Ibaté. Acá podés conocer qué se produce y se vende en nuestra zona.</p>
+        <br>
+        <p><strong>¿Querés sumar tu emprendimiento?</strong> ¡Escribinos y te agregamos! 📩</p>
+    </section>
+</main>
+
+<!-- Pie de página -->
+<footer class="pie">
+    <p>🌊 Conecta Itá — Conectando emprendedores y vecinos de Itá Ibaté</p>
+    <p>© 2026 — Proyecto escolar</p>
+</footer>
+
+</body>
+</html>
       
     
