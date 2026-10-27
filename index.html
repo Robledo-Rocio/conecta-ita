@@ -372,6 +372,15 @@
                 <div style="font-size:32
                     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
+                    CREATE TABLE emprendimientos (
+  id SERIAL PRIMARY KEY,
+  nombre TEXT NOT NULL,
+  rubro TEXT,
+  descripcion TEXT,
+  telefono TEXT,
+  redes_sociales TEXT,
+  creado_en TIMESTAMP DEFAULT NOW()
+);
 
 
 
